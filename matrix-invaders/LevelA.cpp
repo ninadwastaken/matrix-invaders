@@ -77,10 +77,12 @@ void LevelA::initialise()
 
     m_game_state.enemies = new Entity[ENEMY_COUNT];
 
-    for (int i = 0; i < ENEMY_COUNT; i++)
+    /*for (int i = 0; i < ENEMY_COUNT; i++)
     {
     m_game_state.enemies[i] =  Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, GUARD, IDLE);
-    }
+    }*/
+    auto e1 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, GUARD, IDLE);
+    m_game_state.enemies[0] = *e1;
 
 
     m_game_state.enemies[0].set_position(glm::vec3(8.0f, 0.0f, 0.0f));
