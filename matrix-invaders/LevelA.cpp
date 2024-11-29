@@ -6,16 +6,17 @@
 
 constexpr char SPRITESHEET_FILEPATH[] = "assets/neo.png",
            PLATFORM_FILEPATH[]    = "assets/platformPack_tile027.png",
-           ENEMY_FILEPATH[]       = "assets/smith.png";
+           ENEMY_FILEPATH[]       = "assets/smith.png",
+           PROJECTILE_FILEPATH[]  = "assets/projectile.png";
 
 unsigned int LEVEL_DATA[] =
 {
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    3, 1, 3, 2, 1, 3, 2, 4, 2, 1, 2, 0, 0, 0,
+    3, 2, 3, 2, 1, 3, 2, 4, 2, 2, 2, 0, 0, 0,
+    3, 2, 3, 2, 1, 3, 2, 4, 2, 2, 2, 0, 0, 0,
+    3, 2, 3, 2, 1, 3, 2, 4, 2, 2, 2, 0, 0, 0,
+    3, 2, 3, 2, 1, 3, 2, 3, 2, 1, 2, 0, 0, 0,
+    3, 2, 3, 2, 1, 3, 2, 3, 2, 1, 1, 1, 1, 1,
     3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
     3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 };
@@ -37,6 +38,7 @@ void LevelA::initialise()
     m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, map_texture_id, 1.0f, 30, 32);
     
     GLuint player_texture_id = Utility::load_texture(SPRITESHEET_FILEPATH);
+    GLuint projectile_texture_id = Utility::load_texture(PROJECTILE_FILEPATH);
 
     int player_walking_animation[4][4] =
     {

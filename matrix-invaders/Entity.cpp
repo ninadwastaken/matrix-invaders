@@ -332,6 +332,9 @@ void Entity::update(float delta_time, Entity *player, Entity *collidable_entitie
     }
     
     m_position.y += m_velocity.y * delta_time;
+
+    if (m_position.x > 9.5f) m_position.x = 9.5f;
+    if (m_position.x < 0.5f) m_position.x = 0.5f;
     
     check_collision_y(collidable_entities, collidable_entity_count);
     if ((m_entity_type == PLAYER) && (m_collided_top || m_collided_bottom)) {
