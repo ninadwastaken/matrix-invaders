@@ -75,7 +75,7 @@ void LevelA::initialise()
      Enemies' stuff */
     GLuint enemy_texture_id = Utility::load_texture(ENEMY_FILEPATH);
 
-    m_game_state.enemies = new Entity[ENEMY_COUNT];
+    m_game_state.enemies = new Entity[ENEMY_COUNT + PROJECTILE_COUNT];
 
     /*for (int i = 0; i < ENEMY_COUNT; i++)
     {
@@ -83,11 +83,15 @@ void LevelA::initialise()
     }*/
     auto e1 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, GUARD, IDLE);
     m_game_state.enemies[0] = *e1;
-
-
     m_game_state.enemies[0].set_position(glm::vec3(8.0f, 0.0f, 0.0f));
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto p1 = new Entity(projectile_texture_id, 1.0f, 1.0f, 1.0f, PROJECTILE, GUARD, IDLE);
+    m_game_state.enemies[1] = *p1;
+    m_game_state.enemies[1].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[1].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[1].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
     /**
      BGM and SFX
@@ -105,7 +109,7 @@ void LevelA::update(float delta_time)
 {
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
     
-    for (int i = 0; i < ENEMY_COUNT; i++)
+    for (int i = 0; i < ENEMY_COUNT + PROJECTILE_COUNT; i++)
     {
         m_game_state.enemies[i].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
     }
@@ -121,7 +125,7 @@ void LevelA::render(ShaderProgram *g_shader_program)
 {
     m_game_state.map->render(g_shader_program);
     m_game_state.player->render(g_shader_program);
-    for (int i = 0; i < m_number_of_enemies; i++)
+    for (int i = 0; i < ENEMY_COUNT + PROJECTILE_COUNT; i++)
             m_game_state.enemies[i].render(g_shader_program);
 
 
