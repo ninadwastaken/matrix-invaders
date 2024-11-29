@@ -109,10 +109,15 @@ void LevelA::update(float delta_time)
 {
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
     
-    for (int i = 0; i < ENEMY_COUNT + PROJECTILE_COUNT; i++)
+    /*for (int i = 0; i < ENEMY_COUNT + PROJECTILE_COUNT; i++)
     {
         m_game_state.enemies[i].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
-    }
+    }*/
+
+    m_game_state.enemies[0].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
+    m_game_state.enemies[1].update(delta_time, &(m_game_state.enemies[0]), NULL, NULL, m_game_state.map);
+
+
 
     if (m_game_state.player->get_position().y < -10.0f) {
         m_game_state.next_scene_id = 2;

@@ -29,7 +29,9 @@ void Entity::ai_activate(Entity *player)
             m_velocity = glm::vec3(0.0f, -1.0f, 0.0f);
             if (m_position.y < -9.0f) {
                 m_position.y = 0.0f;
+                m_position.x = player->get_position().x;
             }
+          
             break;
             
         default:
