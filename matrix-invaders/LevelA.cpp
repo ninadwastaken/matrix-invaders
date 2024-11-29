@@ -87,7 +87,7 @@ void LevelA::initialise()
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
-    auto p1 = new Entity(projectile_texture_id, 1.0f, 1.0f, 1.0f, PROJECTILE, GUARD, IDLE);
+    auto p1 = new Entity(projectile_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, PROJECTILE, IDLE);
     m_game_state.enemies[1] = *p1;
     m_game_state.enemies[1].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
     m_game_state.enemies[1].set_movement(glm::vec3(0.0f));

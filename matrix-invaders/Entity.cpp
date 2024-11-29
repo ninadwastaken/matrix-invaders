@@ -24,6 +24,10 @@ void Entity::ai_activate(Entity *player)
         case GUARD:
             ai_guard(player);
             break;
+
+        case PROJECTILE:
+            m_velocity = glm::vec3(0.0f, -1.0f, 0.0f);
+            break;
             
         default:
             break;
