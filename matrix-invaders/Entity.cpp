@@ -26,7 +26,7 @@ void Entity::ai_activate(Entity *player)
             break;
 
         case PROJECTILE:
-            m_velocity = glm::vec3(0.0f, -1.0f, 0.0f);
+            m_velocity = glm::vec3(0.0f, -3.0f, 0.0f);
             if (m_position.y < -9.0f) {
                 m_position.y = 0.0f;
                 m_position.x = player->get_position().x;
