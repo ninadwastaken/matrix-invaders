@@ -46,7 +46,7 @@ void LevelA::initialise()
         { 0, 4, 8, 12 }   // for George to move downwards
     };
 
-    glm::vec3 acceleration = glm::vec3(0.0f, -4.81f, 0.0f);
+    glm::vec3 acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 
     m_game_state.player = new Entity(
         player_texture_id,         // texture id
@@ -64,7 +64,7 @@ void LevelA::initialise()
         PLAYER
     );
     
-    m_game_state.player->set_position(glm::vec3(5.0f, 0.0f, 0.0f));
+    m_game_state.player->set_position(glm::vec3(5.0f, -7.0f, 0.0f));
 
     // Jumping
     m_game_state.player->set_jumping_power(5.0f);
@@ -83,7 +83,7 @@ void LevelA::initialise()
 
     m_game_state.enemies[0].set_position(glm::vec3(8.0f, 0.0f, 0.0f));
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
-    m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, -9.81f, 0.0f));
+    m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
     /**
      BGM and SFX

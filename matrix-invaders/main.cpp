@@ -189,8 +189,8 @@ void process_input()
                         // ————— JUMPING ————— //
                         if (g_current_scene->get_state().player->get_collided_bottom())
                         {
-                            g_current_scene->get_state().player->jump();
-                            Mix_PlayChannel(-1,  g_current_scene->get_state().jump_sfx, 0);
+                            //g_current_scene->get_state().player->jump();
+                            //Mix_PlayChannel(-1,  g_current_scene->get_state().jump_sfx, 0);
                         }
                          break;
 
@@ -254,11 +254,13 @@ void update()
     // ————— PLAYER CAMERA ————— //
     g_view_matrix = glm::mat4(1.0f);
     
-    if (g_current_scene->get_state().player->get_position().x > LEVEL1_LEFT_EDGE) {
+    /*if (g_current_scene->get_state().player->get_position().x > LEVEL1_LEFT_EDGE) {
         g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().player->get_position().x, 3.75, 0));
     } else {
         g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
-    }
+    }*/
+    g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
+
 }
 std::string text_to_write;
 void render()
@@ -279,13 +281,13 @@ void render()
         text_to_write = "lives left: " + std::to_string(player_lives);
     }
     
-    if (g_current_scene != g_start_screen) {
+    /*if (g_current_scene != g_start_screen) {
         Utility::draw_text(&g_shader_program, text_to_write,
             0.2f, 0.001f,
             glm::vec3(g_current_scene->m_game_state.player->get_position().x - 2.0f,
                 -0.5f,
                 0.0f));
-    }
+    }*/
     
     SDL_GL_SwapWindow(g_display_window);
 }

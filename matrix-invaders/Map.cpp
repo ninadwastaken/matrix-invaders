@@ -79,6 +79,7 @@ void Map::render(ShaderProgram *program)
 
 bool Map::is_solid(glm::vec3 position, float *penetration_x, float *penetration_y)
 {
+    return false;
     // The penetration between the map and the object
     // The reason why these are pointers is because we want to reassign values
     // to them in case that we are colliding. That way the object that originally
