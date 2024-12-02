@@ -67,7 +67,9 @@ LevelC* g_level_c;
 Start* g_start_screen;
 Start* g_win_screen;
 
-int player_lives = 3;
+float g_level_time_left[3] = { 15.0f, 45.0f, 45.0f };
+int g_curr_level_time_left_index = 0;
+float g_curr_level_time_left_value = 15.0f;
 
 Scene* g_levels[5];
 
@@ -84,6 +86,7 @@ void switch_to_scene(Scene *scene)
 {
     g_current_scene = scene;
     g_current_scene->initialise();
+
 }
 
 void initialise();
@@ -197,6 +200,8 @@ void process_input()
                     case SDLK_RETURN:
                         if (g_current_scene == g_start_screen || g_current_scene == g_win_screen) {
                             switch_to_scene(g_level_a);
+                            g_curr_level_time_left_index = 0;
+                            g_curr_level_time_left_value = g_level_time_left[g_curr_level_time_left_index];
                      
                         }
                         break;
@@ -235,6 +240,8 @@ void update()
         g_accumulator = delta_time;
         return;
     }
+
+    g_curr_level_time_left_value -= delta_time;
     
     while (delta_time >= FIXED_TIMESTEP) {
         // ————— UPDATING THE SCENE (i.e. map, character, enemies...) ————— //
@@ -246,8 +253,7 @@ void update()
     g_accumulator = delta_time;
 
     if (!g_current_scene->m_game_state.player->get_is_active()) {
-        player_lives--;
-        switch_to_scene(g_current_scene);
+        switch_to_scene(g_win_screen);
     }
     
     
@@ -271,23 +277,18 @@ void render()
     
     // ————— RENDERING THE SCENE (i.e. map, character, enemies...) ————— //
     g_current_scene->render(&g_shader_program);
-    if (player_lives <= 0) {
-        text_to_write = "you lose lol";
-    }
-    else if (g_current_scene == g_levels[4]) {
+    if (g_current_scene == g_levels[4]) {
         text_to_write = "you win wowie";
     }
     else {
-        text_to_write = "lives left: " + std::to_string(player_lives);
+        text_to_write = "time left: " + std::to_string(g_curr_level_time_left_value);
     }
     
-    /*if (g_current_scene != g_start_screen) {
+    if (g_current_scene != g_start_screen) {
         Utility::draw_text(&g_shader_program, text_to_write,
             0.2f, 0.001f,
-            glm::vec3(g_current_scene->m_game_state.player->get_position().x - 2.0f,
-                -0.5f,
-                0.0f));
-    }*/
+            glm::vec3(2.0f, -0.5f, 0.0f));
+    }
     
     SDL_GL_SwapWindow(g_display_window);
 }
@@ -311,6 +312,8 @@ int main(int argc, char* argv[])
         update();
 
         if (g_current_scene->m_game_state.next_scene_id >= 0) {
+            g_curr_level_time_left_index = g_current_scene->m_game_state.next_scene_id;
+            g_curr_level_time_left_value = g_level_time_left[g_curr_level_time_left_index];
             switch_to_scene(g_levels[g_current_scene->m_game_state.next_scene_id]);
 
         }

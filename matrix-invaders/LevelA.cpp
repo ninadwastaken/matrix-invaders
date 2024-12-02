@@ -107,7 +107,7 @@ void LevelA::initialise()
 
 void LevelA::update(float delta_time)
 {
-    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
+    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT + PROJECTILE_COUNT, m_game_state.map);
     
     /*for (int i = 0; i < ENEMY_COUNT + PROJECTILE_COUNT; i++)
     {
@@ -133,7 +133,7 @@ void LevelA::render(ShaderProgram *g_shader_program)
     for (int i = 0; i < ENEMY_COUNT + PROJECTILE_COUNT; i++)
             m_game_state.enemies[i].render(g_shader_program);
 
-    Utility::draw_text(g_shader_program, "time left: " + std::to_string(1), 0.2f, 0.001f,
-        glm::vec3(2.0f, -0.5f, 0.0f));
+    /*Utility::draw_text(g_shader_program, "time left: " + std::to_string(1), 0.2f, 0.001f,
+        glm::vec3(2.0f, -0.5f, 0.0f));*/
 
 }
