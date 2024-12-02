@@ -66,12 +66,13 @@ LevelB *g_level_b;
 LevelC* g_level_c;
 Start* g_start_screen;
 Start* g_win_screen;
+Start* g_lose_screen;
 
 float g_level_time_left[3] = { 5.0f, 5.0f, 5.0f };
 int g_curr_level_time_left_index = 0;
 float g_curr_level_time_left_value = 15.0f;
 
-Scene* g_levels[5];
+Scene* g_levels[6];
 
 SDL_Window* g_display_window;
 
@@ -147,12 +148,14 @@ void initialise()
     g_level_b = new LevelB();
     g_level_c = new LevelC();
     g_win_screen = new Start();
+    g_lose_screen = new Start();
 
     g_levels[0] = g_start_screen;
     g_levels[1] = g_level_a;
     g_levels[2] = g_level_b;
     g_levels[3] = g_level_c;
     g_levels[4] = g_win_screen;
+    g_levels[5] = g_lose_screen;
 
 
     switch_to_scene(g_levels[0]);
@@ -198,7 +201,7 @@ void process_input()
                          break;
 
                     case SDLK_RETURN:
-                        if (g_current_scene == g_start_screen || g_current_scene == g_win_screen) {
+                        if (g_current_scene == g_start_screen || g_current_scene == g_win_screen || g_current_scene == g_lose_screen) {
                             switch_to_scene(g_level_a);
                             g_curr_level_time_left_index = 0;
                             g_curr_level_time_left_value = g_level_time_left[g_curr_level_time_left_index];
@@ -244,8 +247,15 @@ void update()
     g_curr_level_time_left_value -= delta_time;
 
     if (g_curr_level_time_left_value < 0) {
-        g_curr_level_time_left_value = g_level_time_left[++g_curr_level_time_left_index];
-        switch_to_scene(g_levels[g_curr_level_time_left_index + 1]);
+        if (g_curr_level_time_left_index == 2) {
+            g_curr_level_time_left_index = 0;
+            g_curr_level_time_left_value = 100000000.0f;
+            switch_to_scene(g_win_screen);
+        }
+        else {
+            g_curr_level_time_left_value = g_level_time_left[++g_curr_level_time_left_index];
+            switch_to_scene(g_levels[g_curr_level_time_left_index + 1]);
+        }
     }
     
     while (delta_time >= FIXED_TIMESTEP) {
@@ -258,7 +268,9 @@ void update()
     g_accumulator = delta_time;
 
     if (!g_current_scene->m_game_state.player->get_is_active()) {
-        switch_to_scene(g_win_screen);
+        switch_to_scene(g_lose_screen);
+        g_curr_level_time_left_index = 0;
+        g_curr_level_time_left_value = 100000000.0f;
     }
     
     
@@ -285,16 +297,24 @@ void render()
     if (g_current_scene == g_levels[4]) {
         text_to_write = "you win wowie";
     }
+    else if (g_current_scene == g_levels[5]) {
+        text_to_write = "you lose lmao";
+    }
     else {
-        text_to_write = "time left: " + std::to_string(g_curr_level_time_left_value);
+        text_to_write = "time left: " + std::to_string((int)g_curr_level_time_left_value);
     }
     
     if (g_current_scene != g_start_screen) {
         Utility::draw_text(&g_shader_program, text_to_write,
             0.2f, 0.001f,
             glm::vec3(2.0f, -0.5f, 0.0f));
+        
     }
-    
+    if (g_current_scene != g_start_screen && g_current_scene != g_win_screen && g_current_scene != g_lose_screen) {
+        Utility::draw_text(&g_shader_program, "level " + std::to_string(g_curr_level_time_left_index + 1),
+            0.2f, 0.001f,
+            glm::vec3(2.0f, -1.5f, 0.0f));
+    }
     SDL_GL_SwapWindow(g_display_window);
 }
 
