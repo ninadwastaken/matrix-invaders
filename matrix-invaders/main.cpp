@@ -67,7 +67,7 @@ LevelC* g_level_c;
 Start* g_start_screen;
 Start* g_win_screen;
 
-float g_level_time_left[3] = { 15.0f, 45.0f, 45.0f };
+float g_level_time_left[3] = { 5.0f, 5.0f, 5.0f };
 int g_curr_level_time_left_index = 0;
 float g_curr_level_time_left_value = 15.0f;
 
@@ -242,6 +242,11 @@ void update()
     }
 
     g_curr_level_time_left_value -= delta_time;
+
+    if (g_curr_level_time_left_value < 0) {
+        g_curr_level_time_left_value = g_level_time_left[++g_curr_level_time_left_index];
+        switch_to_scene(g_levels[g_curr_level_time_left_index + 1]);
+    }
     
     while (delta_time >= FIXED_TIMESTEP) {
         // ————— UPDATING THE SCENE (i.e. map, character, enemies...) ————— //
