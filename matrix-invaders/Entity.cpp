@@ -26,7 +26,7 @@ void Entity::ai_activate(Entity *player)
             break;
 
         case PROJECTILE:
-            m_velocity = glm::vec3(0.0f, -3.0f, 0.0f);
+            m_velocity = glm::vec3(0.0f, -4.0f, 0.0f);
             if (m_position.y < -9.0f) {
                 m_position.y = 0.0f;
                 m_position.x = player->get_position().x;
@@ -39,9 +39,15 @@ void Entity::ai_activate(Entity *player)
     }
 }
 
+bool just_hit_left = false;
 void Entity::ai_walk()
 {
-    m_movement = glm::vec3(-1.0f, 0.0f, 0.0f);
+    if (just_hit_left) {
+        m_movement = glm::vec3(1.0f, 0.0f, 0.0f);
+    }
+    else {
+        m_movement = glm::vec3(-1.0f, 0.0f, 0.0f);
+    }
 }
 
 void Entity::ai_guard(Entity *player)
@@ -342,8 +348,14 @@ void Entity::update(float delta_time, Entity *player, Entity *collidable_entitie
     
     m_position.y += m_velocity.y * delta_time;
 
-    if (m_position.x > 9.5f) m_position.x = 9.5f;
-    if (m_position.x < 0.5f) m_position.x = 0.5f;
+    if (m_position.x > 9.5f) {
+        m_position.x = 9.5f;
+        just_hit_left = false;
+    }
+    if (m_position.x < 0.5f) {
+        m_position.x = 0.5f;
+        just_hit_left = true;
+    }
     
     check_collision_y(collidable_entities, collidable_entity_count);
     if ((m_entity_type == PLAYER) && (m_collided_top || m_collided_bottom)) {

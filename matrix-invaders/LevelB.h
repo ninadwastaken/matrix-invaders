@@ -3,8 +3,8 @@
 class LevelB : public Scene {
 public:
     // ————— STATIC ATTRIBUTES ————— //
-    int ENEMY_COUNT = 1;
-    int PROJECTILE_COUNT = 1;
+    int ENEMY_COUNT = 2;
+    int PROJECTILE_COUNT = 2;
 
     // ————— DESTRUCTOR ————— //
     ~LevelB();

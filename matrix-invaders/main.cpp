@@ -68,7 +68,7 @@ Start* g_start_screen;
 Start* g_win_screen;
 Start* g_lose_screen;
 
-float g_level_time_left[3] = { 5.0f, 5.0f, 5.0f };
+float g_level_time_left[3] = { 5.0f, 25.0f, 5.0f };
 int g_curr_level_time_left_index = 0;
 float g_curr_level_time_left_value = 15.0f;
 

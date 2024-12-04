@@ -12,11 +12,11 @@ PROJECTILE_FILEPATH[] = "assets/projectile.png";
 unsigned int LEVELB_DATA[] =
 {
     3, 1, 3, 2, 1, 3, 2, 4, 2, 1, 2, 0, 0, 0,
-    3, 2, 3, 2, 1, 3, 2, 4, 2, 2, 2, 0, 0, 0,
-    3, 2, 3, 2, 1, 3, 2, 4, 2, 2, 2, 0, 0, 0,
-    3, 2, 3, 2, 1, 3, 2, 4, 2, 2, 2, 0, 0, 0,
-    3, 2, 3, 2, 1, 3, 2, 3, 2, 1, 2, 0, 0, 0,
-    3, 2, 3, 2, 1, 3, 2, 3, 2, 1, 1, 1, 1, 1,
+    3, 2, 3, 2, 1, 3, 2, 3, 2, 2, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 2, 3, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 3, 3, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 2, 1, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 2, 1, 1, 1, 1, 1,
     3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
     3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 };
@@ -93,6 +93,18 @@ void LevelB::initialise()
     m_game_state.enemies[1].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[1].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
+    auto e2 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, WALKER, IDLE);
+    m_game_state.enemies[2] = *e2;
+    m_game_state.enemies[2].set_position(glm::vec3(2.0f, 0.0f, 0.0f));
+    m_game_state.enemies[2].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[2].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto p2 = new Entity(projectile_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, PROJECTILE, IDLE);
+    m_game_state.enemies[3] = *p2;
+    m_game_state.enemies[3].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[3].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[3].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
     /**
      BGM and SFX
      */
@@ -116,6 +128,9 @@ void LevelB::update(float delta_time)
 
     m_game_state.enemies[0].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
     m_game_state.enemies[1].update(delta_time, &(m_game_state.enemies[0]), NULL, NULL, m_game_state.map);
+
+    m_game_state.enemies[2].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
+    m_game_state.enemies[3].update(delta_time, &(m_game_state.enemies[2]), NULL, NULL, m_game_state.map);
 
 
 
