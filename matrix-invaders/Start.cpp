@@ -10,14 +10,15 @@ ENEMY_FILEPATH[] = "assets/smith.png";
 
 unsigned int START_DATA[] =
 {
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
-    3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
-    3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+    315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315, 315,
+
 };
 
 Start::~Start()
@@ -115,5 +116,8 @@ void Start::render(ShaderProgram* g_shader_program)
     //    m_game_state.enemies[i].render(g_shader_program);
 
     Utility::draw_text(g_shader_program, "press enter to begin", 0.3f, 0.001f,
-            glm::vec3(m_game_state.player->get_position().x - 3.5f, m_game_state.player->get_position().y, 0.0f));
+            glm::vec3(m_game_state.player->get_position().x - 3.0f, m_game_state.player->get_position().y - 3.0f, 0.0f));
+
+    Utility::draw_text(g_shader_program, "MATRIX INVADERS", 0.3f, 0.001f,
+        glm::vec3(m_game_state.player->get_position().x - 2.0f, m_game_state.player->get_position().y - 1.0f, 0.0f));
 }
