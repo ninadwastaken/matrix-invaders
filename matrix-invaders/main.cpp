@@ -37,6 +37,7 @@
 #include "Start.h"
 #include "LevelB.h"
 #include "LevelC.h"
+#include "LevelD.h"
 
 // ————— CONSTANTS ————— //
 constexpr int WINDOW_WIDTH  = 640 * 1.6,
@@ -64,15 +65,16 @@ Scene *g_current_scene;
 LevelA* g_level_a;
 LevelB *g_level_b;
 LevelC* g_level_c;
+LevelD* g_level_d;
 Start* g_start_screen;
 Start* g_win_screen;
 Start* g_lose_screen;
 
-float g_level_time_left[3] = {1.0f, 1.0f,30.0f };
+float g_level_time_left[4] = { 1.0f, 1.0f, 1.0f, 4.0 };
 int g_curr_level_time_left_index = 0;
 float g_curr_level_time_left_value = 15.0f;
 
-Scene* g_levels[6];
+Scene* g_levels[7];
 
 SDL_Window* g_display_window;
 
@@ -154,6 +156,7 @@ void initialise()
     g_level_a = new LevelA();
     g_level_b = new LevelB();
     g_level_c = new LevelC();
+    g_level_d = new LevelD();
     g_win_screen = new Start();
     g_lose_screen = new Start();
 
@@ -161,8 +164,9 @@ void initialise()
     g_levels[1] = g_level_a;
     g_levels[2] = g_level_b;
     g_levels[3] = g_level_c;
-    g_levels[4] = g_win_screen;
-    g_levels[5] = g_lose_screen;
+    g_levels[4] = g_level_d;
+    g_levels[5] = g_win_screen;
+    g_levels[6] = g_lose_screen;
 
 
     switch_to_scene(g_levels[0]);
@@ -255,7 +259,7 @@ void update()
 
     if (g_curr_level_time_left_value < 0) {
 
-        if (g_curr_level_time_left_index == 2) {
+        if (g_curr_level_time_left_index == 3) {
             Mix_PlayChannel(-1, win_sound_effect, 0);
             g_curr_level_time_left_index = 0;
             g_curr_level_time_left_value = 100000000.0f;
@@ -305,10 +309,10 @@ void render()
     
     // ————— RENDERING THE SCENE (i.e. map, character, enemies...) ————— //
     g_current_scene->render(&g_shader_program);
-    if (g_current_scene == g_levels[4]) {
+    if (g_current_scene == g_levels[5]) {
         text_to_write = "you win wowie";
     }
-    else if (g_current_scene == g_levels[5]) {
+    else if (g_current_scene == g_levels[6]) {
         text_to_write = "you lose lmao";
     }
     else {
