@@ -68,7 +68,7 @@ Start* g_start_screen;
 Start* g_win_screen;
 Start* g_lose_screen;
 
-float g_level_time_left[3] = { 5.0f, 25.0f, 5.0f };
+float g_level_time_left[3] = {1.0f, 1.0f,1.0f };
 int g_curr_level_time_left_index = 0;
 float g_curr_level_time_left_value = 15.0f;
 
@@ -96,7 +96,9 @@ void update();
 void render();
 void shutdown();
 
-
+Mix_Chunk* death_sound_effect;
+Mix_Chunk* level_change_sound_effect;
+Mix_Chunk* win_sound_effect;
 void initialise()
 {
     // ————— VIDEO ————— //
@@ -109,6 +111,11 @@ void initialise()
     auto bgm = Mix_LoadMUS("assets/bgm.wav");
     Mix_PlayMusic(bgm, -1);
     Mix_VolumeMusic(0);
+
+    death_sound_effect = Mix_LoadWAV("assets/bounce.wav");
+    level_change_sound_effect = Mix_LoadWAV("assets/level-up.wav");
+    win_sound_effect = Mix_LoadWAV("assets/win-sound.wav");
+
 
     g_display_window = SDL_CreateWindow("matrix invaders",
                                       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -247,12 +254,15 @@ void update()
     g_curr_level_time_left_value -= delta_time;
 
     if (g_curr_level_time_left_value < 0) {
+
         if (g_curr_level_time_left_index == 2) {
+            Mix_PlayChannel(-1, win_sound_effect, 0);
             g_curr_level_time_left_index = 0;
             g_curr_level_time_left_value = 100000000.0f;
             switch_to_scene(g_win_screen);
         }
         else {
+            Mix_PlayChannel(-1, level_change_sound_effect, 0);
             g_curr_level_time_left_value = g_level_time_left[++g_curr_level_time_left_index];
             switch_to_scene(g_levels[g_curr_level_time_left_index + 1]);
         }
@@ -268,6 +278,7 @@ void update()
     g_accumulator = delta_time;
 
     if (!g_current_scene->m_game_state.player->get_is_active()) {
+        Mix_PlayChannel(-1, death_sound_effect, 0);
         switch_to_scene(g_lose_screen);
         g_curr_level_time_left_index = 0;
         g_curr_level_time_left_value = 100000000.0f;
