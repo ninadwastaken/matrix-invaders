@@ -11,14 +11,14 @@ PROJECTILE_FILEPATH[] = "assets/projectile.png";
 
 unsigned int LevelD_DATA[] =
 {
-    2, 2, 4, 4, 1, 3, 1, 4, 3, 3, 3, 0, 0, 0,
-    2, 2, 4, 4, 1, 4, 1, 2, 3, 3, 3, 0, 0, 0,
-    1, 2, 2, 4, 1, 4, 1, 2, 3, 2, 2, 0, 0, 0,
-    1, 1, 2, 1, 1, 4, 1, 2, 2, 2, 2, 0, 0, 0,
-    1, 1, 2, 1, 1, 4, 1, 2, 2, 1, 2, 0, 0, 0,
-    1, 1, 2, 2, 3, 2, 1, 3, 2, 1, 1, 1, 1, 1,
-    3, 1, 2, 2, 3, 2, 1, 1, 1, 2, 2, 2, 2, 2,
-    3, 2, 2, 3, 3, 1, 2, 2, 2, 2, 2, 2, 2, 2
+    3, 1, 3, 2, 1, 3, 2, 4, 2, 1, 2, 0, 0, 0,
+    3, 2, 3, 2, 1, 3, 2, 3, 2, 2, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 2, 3, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 3, 3, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 2, 1, 2, 0, 0, 0,
+    2, 1, 3, 4, 2, 1, 1, 3, 2, 1, 1, 1, 1, 1,
+    3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
+    3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 };
 
 LevelD::~LevelD()
@@ -95,7 +95,7 @@ void LevelD::initialise()
 
     auto e2 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, STANDER, IDLE);
     m_game_state.enemies[2] = *e2;
-    m_game_state.enemies[2].set_position(glm::vec3(2.0f, 0.0f, 0.0f));
+    m_game_state.enemies[2].set_position(glm::vec3(1.0f, 0.0f, 0.0f));
     m_game_state.enemies[2].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[2].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
@@ -107,7 +107,7 @@ void LevelD::initialise()
 
     auto e3 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, STANDER, IDLE);
     m_game_state.enemies[4] = *e3;
-    m_game_state.enemies[4].set_position(glm::vec3(8.0f, 0.0f, 0.0f));
+    m_game_state.enemies[4].set_position(glm::vec3(3.0f, 0.0f, 0.0f));
     m_game_state.enemies[4].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[4].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
@@ -116,6 +116,42 @@ void LevelD::initialise()
     m_game_state.enemies[5].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
     m_game_state.enemies[5].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[5].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto e4 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, STANDER, IDLE);
+    m_game_state.enemies[6] = *e4;
+    m_game_state.enemies[6].set_position(glm::vec3(5.0f, 0.0f, 0.0f));
+    m_game_state.enemies[6].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[6].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto p4 = new Entity(projectile_texture_id, 1.0f, 0.0f, 1.0f, ENEMY, FASTER_PROJECTILE, IDLE);
+    m_game_state.enemies[7] = *p4;
+    m_game_state.enemies[7].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[7].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[7].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto e5 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, STANDER, IDLE);
+    m_game_state.enemies[8] = *e5;
+    m_game_state.enemies[8].set_position(glm::vec3(7.0f, 0.0f, 0.0f));
+    m_game_state.enemies[8].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[8].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto p5 = new Entity(projectile_texture_id, 1.0f, 0.0f, 1.0f, ENEMY, FASTER_PROJECTILE, IDLE);
+    m_game_state.enemies[9] = *p5;
+    m_game_state.enemies[9].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[9].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[9].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto e6 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, STANDER, IDLE);
+    m_game_state.enemies[10] = *e6;
+    m_game_state.enemies[10].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[10].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[10].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto p6 = new Entity(projectile_texture_id, 1.0f, 0.0f, 1.0f, ENEMY, FASTER_PROJECTILE, IDLE);
+    m_game_state.enemies[11] = *p6;
+    m_game_state.enemies[11].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[11].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[11].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
     /**
      BGM and SFX
@@ -144,6 +180,12 @@ void LevelD::update(float delta_time)
     m_game_state.enemies[3].update(delta_time, &(m_game_state.enemies[2]), NULL, NULL, m_game_state.map);
     m_game_state.enemies[4].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
     m_game_state.enemies[5].update(delta_time, &(m_game_state.enemies[4]), NULL, NULL, m_game_state.map);
+    m_game_state.enemies[6].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
+    m_game_state.enemies[7].update(delta_time, &(m_game_state.enemies[6]), NULL, NULL, m_game_state.map);
+    m_game_state.enemies[8].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
+    m_game_state.enemies[9].update(delta_time, &(m_game_state.enemies[8]), NULL, NULL, m_game_state.map);
+    m_game_state.enemies[10].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
+    m_game_state.enemies[11].update(delta_time, &(m_game_state.enemies[10]), NULL, NULL, m_game_state.map);
 
 
 
