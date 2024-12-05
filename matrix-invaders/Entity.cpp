@@ -197,7 +197,7 @@ void const Entity::check_collision_y(Entity *collidable_entities, int collidable
 
                 // Collision!
                 m_collided_top  = true;
-            } else if (m_velocity.y < 0)
+            } else
             {
                 m_position.y      += y_overlap;
                 m_velocity.y       = 0;
@@ -227,7 +227,7 @@ void const Entity::check_collision_x(Entity *collidable_entities, int collidable
                 // Collision!
                 m_collided_right  = true;
                 
-            } else if (m_velocity.x < 0)
+            } else
             {
                 m_position.x    += x_overlap;
                 m_velocity.x     = 0;
