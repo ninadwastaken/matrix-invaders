@@ -136,6 +136,7 @@
     <ClCompile Include="LevelB.cpp" />
     <ClCompile Include="LevelC.cpp" />
     <ClCompile Include="LevelD.cpp" />
+    <ClCompile Include="LevelE.cpp" />
     <ClCompile Include="main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\SDL\glew\include;C:\SDL\SDL2\include;C:\SDL\SDL2_image\include;C:\SDL\SDL2_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -152,6 +153,7 @@
     <ClInclude Include="LevelB.h" />
     <ClInclude Include="LevelC.h" />
     <ClInclude Include="LevelD.h" />
+    <ClInclude Include="LevelE.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />

@@ -1,13 +1,13 @@
 #include "Scene.h"
 
-class LevelB : public Scene {
+class LevelE : public Scene {
 public:
     // ————— STATIC ATTRIBUTES ————— //
-    int ENEMY_COUNT = 3;
-    int PROJECTILE_COUNT = 3;
+    int ENEMY_COUNT = 6;
+    int PROJECTILE_COUNT = 6;
 
     // ————— DESTRUCTOR ————— //
-    ~LevelB();
+    ~LevelE();
 
     // ————— METHODS ————— //
     void initialise() override;

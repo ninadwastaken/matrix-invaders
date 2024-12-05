@@ -105,6 +105,18 @@ void LevelB::initialise()
     m_game_state.enemies[3].set_movement(glm::vec3(0.0f));
     m_game_state.enemies[3].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
 
+    auto e3 = new Entity(enemy_texture_id, 1.0f, 1.0f, 1.0f, ENEMY, STANDER, IDLE);
+    m_game_state.enemies[4] = *e3;
+    m_game_state.enemies[4].set_position(glm::vec3(5.0f, 0.0f, 0.0f));
+    m_game_state.enemies[4].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[4].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    auto p3 = new Entity(projectile_texture_id, 1.0f, 0.0f, 1.0f, ENEMY, PROJECTILE, IDLE);
+    m_game_state.enemies[5] = *p3;
+    m_game_state.enemies[5].set_position(glm::vec3(9.0f, 0.0f, 0.0f));
+    m_game_state.enemies[5].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[5].set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
     /**
      BGM and SFX
      */
@@ -131,6 +143,9 @@ void LevelB::update(float delta_time)
 
     m_game_state.enemies[2].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
     m_game_state.enemies[3].update(delta_time, &(m_game_state.enemies[2]), NULL, NULL, m_game_state.map);
+
+    m_game_state.enemies[4].update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
+    m_game_state.enemies[5].update(delta_time, &(m_game_state.enemies[4]), NULL, NULL, m_game_state.map);
 
 
 
