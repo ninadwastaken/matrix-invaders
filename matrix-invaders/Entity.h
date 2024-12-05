@@ -5,7 +5,7 @@
 #include "glm/glm.hpp"
 #include "ShaderProgram.h"
 enum EntityType { PLATFORM, PLAYER, ENEMY  };
-enum AIType     { WALKER, GUARD, PROJECTILE};
+enum AIType     { WALKER, GUARD, PROJECTILE, STANDER, FASTER_PROJECTILE};
 enum AIState    { WALKING, IDLE, ATTACKING };
 
 
