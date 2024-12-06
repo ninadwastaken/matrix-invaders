@@ -55,7 +55,8 @@ constexpr int VIEWPORT_X = 0,
           VIEWPORT_HEIGHT = WINDOW_HEIGHT;
 
 constexpr char V_SHADER_PATH[] = "shaders/vertex_textured.glsl",
-           F_SHADER_PATH[] = "shaders/fragment_textured.glsl";
+           F_SHADER_PATH[] = "shaders/fragment_textured.glsl",
+           FINAL_LEVEL_F_SHADER_PATH[] = "shaders/effects_textured.glsl";
 
 constexpr float MILLISECONDS_IN_SECOND = 1000.0;
 
@@ -72,7 +73,7 @@ Start* g_start_screen;
 Start* g_win_screen;
 Start* g_lose_screen;
 
-float g_level_time_left[5] = { 1.0f, 1.0f, 1.0f, 1.0f, 50.0f };
+float g_level_time_left[5] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 int g_curr_level_time_left_index = 0;
 float g_curr_level_time_left_value = 15.0f;
 
@@ -140,6 +141,7 @@ void initialise()
     // ————— GENERAL ————— //
     glViewport(VIEWPORT_X, VIEWPORT_Y, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     
+    g_shader_program.load(V_SHADER_PATH, F_SHADER_PATH);
     g_shader_program.load(V_SHADER_PATH, F_SHADER_PATH);
     
     g_view_matrix = glm::mat4(1.0f);
@@ -263,17 +265,29 @@ void update()
 
     if (g_curr_level_time_left_value < 0) {
 
+        if (g_curr_level_time_left_index == 3) {
+            g_shader_program.load(V_SHADER_PATH, FINAL_LEVEL_F_SHADER_PATH);
+            g_shader_program.set_projection_matrix(g_projection_matrix);
+            g_shader_program.set_view_matrix(g_view_matrix);
+        }
+
         if (g_curr_level_time_left_index == 4) {
             Mix_PlayChannel(-1, win_sound_effect, 0);
             g_curr_level_time_left_index = 0;
             g_curr_level_time_left_value = 100000000.0f;
             switch_to_scene(g_win_screen);
+
+            g_shader_program.load(V_SHADER_PATH, F_SHADER_PATH);
+            g_shader_program.set_projection_matrix(g_projection_matrix);
+            g_shader_program.set_view_matrix(g_view_matrix);
         }
         else {
             Mix_PlayChannel(-1, level_change_sound_effect, 0);
             g_curr_level_time_left_value = g_level_time_left[++g_curr_level_time_left_index];
             switch_to_scene(g_levels[g_curr_level_time_left_index + 1]);
         }
+
+        
     }
     
     while (delta_time >= FIXED_TIMESTEP) {
